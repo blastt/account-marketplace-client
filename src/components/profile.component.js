@@ -23,7 +23,7 @@ class Profile extends Component {
           {currentUser.token.substr(currentUser.token.length - 20)}
         </p>
         <p>
-          <strong>Id:</strong> {currentUser.id}
+          <strong>username:</strong> {currentUser.userName}
         </p>
         <p>
           <strong>Email:</strong> {currentUser.email}
