@@ -28,7 +28,7 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      loading: false,
+      loading: false
     };
   }
 
@@ -58,8 +58,8 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       dispatch(login(this.state.username, this.state.password))
         .then(() => {
-          history.push("/profile");
-          window.location.reload();
+          history.goBack();
+          //window.location.reload();
         })
         .catch(() => {
           this.setState({
@@ -76,52 +76,43 @@ class Login extends Component {
   render() {
     const { isLoggedIn, message } = this.props;
 
-    if (isLoggedIn) {
-      return <Redirect to="/profile" />;
-    }
-
     return (
-      <div className="col-md-12">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
-
-          <Form
+      <div class="row justify-content-md-center">
+    
+<Form
             onSubmit={this.handleLogin}
             ref={(c) => {
               this.form = c;
             }}
           >
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <Input
-                type="text"
-                className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                validations={[required]}
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Input
-                type="password"
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
-                validations={[required]}
-              />
-            </div>
-
-            <div className="form-group">
+  <div className="mb-3">
+    <label for="username">Username</label>
+    <Input
+      type="text"
+      id="username"
+      className="form-control"
+      name="username"
+      value={this.state.username}
+      onChange={this.onChangeUsername}
+      validations={[required]}
+    />
+  </div>
+  <div className="mb-3">
+    <label for="password" className="form-label">Password</label>
+    <Input
+      type="password"
+      id="password"
+      className="form-control"
+      name="password"
+      value={this.state.password}
+      onChange={this.onChangePassword}
+      validations={[required]}
+    />
+  </div>
+  
+  <div className="form-group">
               <button
-                className="btn btn-primary btn-block"
+                className="btn btn-primary"
                 disabled={this.state.loading}
               >
                 {this.state.loading && (
@@ -144,9 +135,13 @@ class Login extends Component {
                 this.checkBtn = c;
               }}
             />
-          </Form>
-        </div>
-      </div>
+</Form>
+
+</div>
+
+
+
+      
     );
   }
 }

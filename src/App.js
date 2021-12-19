@@ -9,11 +9,13 @@ import Login from "./components/login.component";
 import Register from "./components/register.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
+import Products from "./components/products.component";
 import BoardUser from "./components/board-user.component";
 import BoardModerator from "./components/board-moderator.component";
 import BoardAdmin from "./components/board-admin.component";
 
 import { logout } from "./actions/auth";
+import { setupInterceptors } from "./actions/product";
 import { clearMessage } from "./actions/message";
 
 import { history } from './helpers/history';
@@ -36,7 +38,7 @@ class App extends Component {
 
   componentDidMount() {
     const user = this.props.user;
-
+    this.props.dispatch(setupInterceptors(history));
     if (user) {
       this.setState({
         currentUser: user,
@@ -57,13 +59,21 @@ class App extends Component {
       <Router history={history}>
         <div>
           <nav className="navbar navbar-expand navbar-dark bg-dark">
+            <div className="container">
             <Link to={"/"} className="navbar-brand">
               Marketplace
             </Link>
+            
             <div className="navbar-nav mr-auto">
               <li className="nav-item">
                 <Link to={"/home"} className="nav-link">
                   Home
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/products"} className="nav-link">
+                  Products
                 </Link>
               </li>
 
@@ -83,13 +93,6 @@ class App extends Component {
                 </li>
               )}
 
-              {currentUser && (
-                <li className="nav-item">
-                  <Link to={"/user"} className="nav-link">
-                    User
-                  </Link>
-                </li>
-              )}
             </div>
 
             {currentUser ? (
@@ -120,6 +123,7 @@ class App extends Component {
                 </li>
               </div>
             )}
+            </div>
           </nav>
 
           <div className="container mt-3">
@@ -128,11 +132,13 @@ class App extends Component {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/products" component={Products} />
               <Route path="/user" component={BoardUser} />
               <Route path="/mod" component={BoardModerator} />
               <Route path="/admin" component={BoardAdmin} />
             </Switch>
           </div>
+          
         </div>
       </Router>
     );
