@@ -93,6 +93,7 @@ class App extends Component {
                 </li>
               )}
 
+
             </div>
 
             {currentUser ? (
@@ -133,7 +134,6 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/products" component={Products} />
-              <Route path="/user" component={BoardUser} />
               <Route path="/mod" component={BoardModerator} />
               <Route path="/admin" component={BoardAdmin} />
             </Switch>

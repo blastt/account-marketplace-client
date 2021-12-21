@@ -17,11 +17,19 @@ class ProductService {
   }
   setupInterceptors(history) {
     httpClient.interceptors.response.use(undefined, (err) => {
-      if (err.response.status === 401){
+
+      if (err.response.status === 401) {
         console.log("401 Error");
         localStorage.removeItem("user");
-        history.push('/login')
+        history.push({
+          pathname: '/login',
+          fromError: true
+        });
       }
+      if (err.response.status === 403) {
+          console.log('Error 403');
+      }
+
          return Promise.reject(err);
       }
    );

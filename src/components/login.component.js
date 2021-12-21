@@ -53,13 +53,13 @@ class Login extends Component {
 
     this.form.validateAll();
 
-    const { dispatch, history } = this.props;
-
+    const { dispatch, history, location, isLoggedIn } = this.props;
     if (this.checkBtn.context._errors.length === 0) {
       dispatch(login(this.state.username, this.state.password))
         .then(() => {
-          history.goBack();
-          //window.location.reload();
+            console.log(location.fromError);
+            history.goBack();
+            location.reload();
         })
         .catch(() => {
           this.setState({
@@ -77,7 +77,7 @@ class Login extends Component {
     const { isLoggedIn, message } = this.props;
 
     return (
-      <div class="row justify-content-md-center">
+      <div className="row justify-content-md-center">
     
 <Form
             onSubmit={this.handleLogin}
@@ -86,7 +86,7 @@ class Login extends Component {
             }}
           >
   <div className="mb-3">
-    <label for="username">Username</label>
+    <label htmlFor="username">Username</label>
     <Input
       type="text"
       id="username"
@@ -98,7 +98,7 @@ class Login extends Component {
     />
   </div>
   <div className="mb-3">
-    <label for="password" className="form-label">Password</label>
+    <label htmlFor="password" className="form-label">Password</label>
     <Input
       type="password"
       id="password"
